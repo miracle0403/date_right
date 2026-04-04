@@ -5,3 +5,8 @@ exports.insertUser = (name, email, password, callback) => {
 
   db.query(query, [name, email, password], callback);
 };
+
+exports.findUserByEmail = (email, callback) => {
+  const query = 'SELECT * FROM users WHERE email = ?';
+  db.query(query, [email], callback);
+};
