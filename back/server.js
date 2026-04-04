@@ -43,15 +43,17 @@ app.get('/protected', verifyToken, (req, res) => {
 
 const answerRoutes = require('./src/routes/answerRoutes');
 const matchRoutes = require('./src/routes/matchRoutes');
+const preferenceRoutes = require('./src/routes/preferenceRoutes');
 
+app.use('/api', preferenceRoutes);
 app.use('/api', answerRoutes);
 app.use('/api', matchRoutes);
 
 
-app.get('/test-advanced-matches', async (req, res) => {
-  const { findMatchesAdvanced } = require('./src/services/matchService');
+app.get('/test-preferences', async (req, res) => {
+  const { setPreferences } = require('./src/services/preferenceService');
 
-  const result = await findMatchesAdvanced(1);
+  const result = await setPreferences(1, 'female', 20, 30);
 
   res.json(result);
 });
