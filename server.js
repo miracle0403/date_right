@@ -39,3 +39,19 @@ app.get('/protected', verifyToken, (req, res) => {
     user: req.user
   });
 });
+
+
+const answerRoutes = require('./src/routes/answerRoutes');
+const matchRoutes = require('./src/routes/matchRoutes');
+
+app.use('/api', answerRoutes);
+app.use('/api', matchRoutes);
+
+
+app.get('/test-advanced-matches', async (req, res) => {
+  const { findMatchesAdvanced } = require('./src/services/matchService');
+
+  const result = await findMatchesAdvanced(1);
+
+  res.json(result);
+});
