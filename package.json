@@ -1,0 +1,29 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/miracle0403/date_right#readme",
+  "bugs": {
+    "url": "https://github.com/miracle0403/date_right/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/miracle0403/date_right.git"
+  },
+  "license": "ISC",
+  "author": "Miracle Ifeoma LAwrence",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.0",
+    "express": "^5.2.1",
+    "helmet": "^8.1.0",
+    "mysql2": "^3.20.0"
+  }
+}

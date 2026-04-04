@@ -1,0 +1,31 @@
+require('dotenv').config();
+
+const express = require('express');
+const helmet = require('helmet');
+const cors = require('cors');
+
+// DB connection
+require('./src/config/db');
+
+const authRoutes = require('./src/routes/authRoutes');
+
+const app = express(); // ✅ MUST COME BEFORE app.use
+
+// Middleware
+app.use(express.json());
+app.use(helmet());
+app.use(cors());
+
+// Routes
+app.use('/api/auth', authRoutes); // ✅ NOW it works
+
+// Test route
+app.get('/', (req, res) => {
+  res.send('Dating App API is running...');
+});
+
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
