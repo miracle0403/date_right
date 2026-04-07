@@ -31,3 +31,13 @@ export const loginUser = async (data) => {
   return res.json();
 };
 
+export const getMatches = async (token) => {
+  const res = await fetch(`${BASE_URL}/matches`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+
+  return res.json();
+};

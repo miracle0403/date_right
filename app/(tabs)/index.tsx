@@ -1,32 +1,29 @@
 import { useState } from 'react';
-import { View, TextInput, Button, Text } from 'react-native';
+import { View, Button, ScrollView } from 'react-native';
 import * as SecureStore from 'expo-secure-store';
-import { loginUser } from '../../services/api';
+import { getMatches } from '../../services/api';
+import MatchCard from '../../components/MatchCard';
 
-export default function LoginScreen() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [response, setResponse] = useState('');
+export default function HomeScreen() {
+  const [matches, setMatches] = useState([]);
 
-  const handleLogin = async () => {
-    const res = await loginUser({ email, password });
-
-    if (res.token) {
-      await SecureStore.setItemAsync('token', res.token);
-      setResponse('Login successful');
-    } else {
-      setResponse(JSON.stringify(res));
-    }
+  const fetchMatches = async () => {
+    const token = await SecureStore.getItemAsync('token');
+    const res = await getMatches(token);
+    setMatches(res.matches || []);
   };
 
   return (
-    <View style={{ padding: 40 }}>
-      <TextInput placeholder="Email" onChangeText={setEmail} />
-      <TextInput placeholder="Password" onChangeText={setPassword} />
+    <View style={{ flex: 1, padding: 20, backgroundColor: '#0a0a0a' }}>
+      
+      <Button title="Discover" onPress={fetchMatches} />
 
-      <Button title="Login" onPress={handleLogin} />
+      <ScrollView style={{ marginTop: 20 }}>
+        {matches.map((user, index) => (
+          <MatchCard key={index} user={user} />
+        ))}
+      </ScrollView>
 
-      <Text>{response}</Text>
     </View>
   );
 }
